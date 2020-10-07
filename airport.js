@@ -16,6 +16,7 @@ class Passenger {
 }
 
 class Plane {
+
     constructor(destination) {
         this.destination = destination
         this.passengers = []
@@ -26,12 +27,26 @@ class Plane {
 }
 
 class Airport {
+    static airports = []
+
     constructor(name) {
         this.name = name
         this.arrivals = []
+        this.constructor.airports.push(this)
     }
     addPlane(arrival) {
          this.arrivals.push(arrival)
+    }
+
+    departure(plane) {
+        const liftOff = this.arrivals.indexOf(plane)
+        this.arrivals.splice(liftOff, 1)
+    }
+
+    landing(arrivals, destination) {
+        const landing = this.arrivals.indexOf(this.arrivals)
+        this.arrivals.splice(landing, 1)
+        destination.arrivals.push(arrivals)
     }
 }
 

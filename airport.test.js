@@ -85,3 +85,38 @@ describe("successful takeoff and landing", () => {
     })
 })
 
+describe("moving planes", () => {
+    test.skip("accessible airport instances are possible",() => (
+        expect(Airport.airports).toEqual([])
+    ))
+    test("planes can move from one airport to another", () => {
+        Airport.airports = []
+        const bag = new Bag(20)
+        const passenger = new Passenger("Tim")
+        const departure = new Plane("1")
+        const departure2 = new Plane("2")
+        const LAX = new Airport("LAX")
+        const JFK = new Airport("JFK")
+        const NYC = new Airport("NYC")
+        const LDN = new Airport("LDN")
+
+        passenger.addBag(bag)
+        departure.addPassenger(passenger)
+        LAX.addPlane(departure)
+        LDN.addPlane(departure2)
+        LAX.departure(departure)
+        LDN.departure(departure2)
+
+        console.log(LAX)
+        console.log(JFK)
+
+        JFK.landing(departure, LAX)
+        NYC.landing(departure2, LDN)
+
+        console.log(LAX)
+        console.log(JFK)
+        
+
+        
+    })
+})
