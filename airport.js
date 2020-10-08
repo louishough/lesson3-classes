@@ -15,10 +15,22 @@ class Passenger {
     }
 }
 
+class Crew extends Passenger {
+    makeCoffee() {
+        return "Here is your coffee!"
+    }
+}
+
+class Pilot extends Passenger {
+    canFlyPlane() {
+        return 1
+    }
+}
+
 class Plane {
 
-    constructor(destination) {
-        this.destination = destination
+    constructor(plane) {
+        this.plane = plane
         this.passengers = []
     }
     addPassenger(passenger) {
@@ -52,4 +64,4 @@ class Airport {
 
 
 
-module.exports = {Bag, Passenger, Plane, Airport}
+module.exports = {Bag, Passenger, Plane, Airport, Crew, Pilot}

@@ -1,5 +1,5 @@
 const { TestScheduler } = require("jest")
-const {Airport, Plane, Passenger, Bag } = require('./airport')
+const {Airport, Plane, Passenger, Bag, Crew, Pilot} = require('./airport')
 
 describe("bag", () => {
     test("has a weight", () => {
@@ -25,6 +25,34 @@ describe("passenger", () => {
     })
 })
 
+describe("crew", () => {
+    test("crew can make coffee", () => {
+        const crewMember = new Crew
+        expect(crewMember.makeCoffee()).toBe("Here is your coffee!")
+    })
+    test("crew have a namebadge", () => {
+        expect(new Crew("David").name).toBe("David")
+    })
+    test("crew can carry bags", () => {
+        const david = new Crew("David")
+        david.addBag(2)
+        expect(david.bags.length).toBe(1)
+    })
+})
+
+describe("pilot", () => {
+    test("can fly planes", () => {
+        expect(new Pilot("Tom").canFlyPlane()).toBe(1)
+    })
+    test("pilots have name badges", () => {
+        expect(new Pilot("Tom").name).toBe("Tom")
+    })
+    test("pilots can carry bags", () => {
+        const tom = new Pilot("Tom")
+        tom.addBag(5)
+        expect(tom.bags.length).toBe(1)
+    })
+})
 
 describe("plane", () => {
     test("has destination", () => {
@@ -106,17 +134,12 @@ describe("moving planes", () => {
         LDN.addPlane(departure2)
         LAX.departure(departure)
         LDN.departure(departure2)
-
-        console.log(LAX)
-        console.log(JFK)
-
-        JFK.landing(departure, LAX)
-        NYC.landing(departure2, LDN)
-
-        console.log(LAX)
-        console.log(JFK)
+        LAX.landing(departure, JFK)
+        LDN.landing(departure2, NYC)
         
-
-        
+        expect(LAX.arrivals.length).toBe(0)
+        expect(LDN.arrivals.length).toBe(0)
+        expect(JFK.arrivals.length).toBe(1)
+        expect(NYC.arrivals.length).toBe(1)
     })
 })
